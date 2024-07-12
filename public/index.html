@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test FrontEnd</title>
+</head>
+<body>
+    <h1>Projet Main Verte</h1>
+
+    <h2>Plants</h2>
+    <table>
+        <thead>
+            <th>id</th>
+            <th>name</th>
+            <th>hp</th>
+            <th>cp</th>
+        </thead>
+        <tbody id="plantList">
+
+        </tbody>
+    </table>
+
+    <h2>Add a plant</h2>
+    <form id="addPlantForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        <input type="number" id="hp" name="hp" required>
+        <input type="number" id="cp" name="cp" required>
+        <button type="submit">Add Plant</button>
+    </form>
+
+    <script src="./main.js"></script>
+
+
+</body>
+</html> 
