@@ -7,7 +7,6 @@ let title = "projet main verte !!";
 const sequelize = require('./src/db/sequelize');
 
 
-
 // va chercher express dans node_module 
 // instance de express définit le port du server web 
 const app = express()
@@ -32,14 +31,17 @@ sequelize.initDb();
 // CHAINE DE TRAITEMENT DE LA REQUET HTTP
 // requete http client --> API RESET --> Appel à la base de données --> reponse HTTP
 
-const findallplants = require('./src/routes/findAllPlants');
-findallplants(app);
-// require('./src/routes/findAllPlants')(app);
+// methode longue 
+// const findallplants = require('./src/routes/findAllPlants');
+// findallplants(app);
 
+// methode simplifiée
+require('./src/routes/findAllPlants')(app);
 require('./src/routes/findPlantByPk')(app);
 require('./src/routes/createPlant')(app);
 require('./src/routes/updatePlant')(app);
 require('./src/routes/deletePlant')(app);
+require('./src/routes/login')(app);
 
 // Gestion des erreurs 404 par express
 app.use((req, res, next) => {
@@ -54,3 +56,19 @@ app.listen(port, () => { console.debug(`notre app ${title} listening on :${port}
 // un server dev avec node.js + 
 // une api rest réalisée avec express + 
 // directement reliée a une base de données mysql
+
+
+// sequelize.Plant.create({
+//     name: 'Dracaena',
+//     hp: 21,
+//     cp: 4,
+//     picture: 'https://dumonthorticulture.fr/wp-content/uploads/2021/12/20230424_175403-scaled.jpg',
+//     types: ['Feuilles', 'Verte']
+// })
+// .then(plant => {
+//     console.log('Plante ajoutée :', plant);
+// })
+// .catch(error => {
+//     console.error('Erreur d\'ajout :', error);
+// });
+

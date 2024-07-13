@@ -1,6 +1,10 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const PlantModel = require('../models/plant');
+const UserModel = require('../models/user');
 const plants = require('./mock-plants');
+const user = require('../models/user');
+const bcrypt = require('bcryptjs');
+
 
 const sequelize = new Sequelize(
     'glasshouse',
@@ -21,7 +25,7 @@ sequelize.authenticate()
 .catch(err => { console.error('Unable to connect to the database:', err);});
 
 const Plant = PlantModel(sequelize, DataTypes);
-
+const User = UserModel(sequelize, DataTypes);
 
 const initDb = () => {
 
@@ -30,19 +34,23 @@ const initDb = () => {
     .then(_ => {
         console.log('la base de données ' + sequelize.config.database + ' est synchronisee');
         // ajouter des plantes à la base de données (équivalent des fixtures)
-        // plants.map(plant => {
-        //    Plant.create({
-        //        name : plant.name,
-        //        hp : plant.hp,
-        //        cp : plant.cp,
-        //        picture : plant.picture,
-        //        types: plant.types,   
-        //    }).then(myPlant => console.log(myPlant.toJSON()));
-        // }) 
+        
+        // if le user n'existe pas 
+        if(!User.findOne({ where: { username: 'tarik' } })) {
+            return bcrypt.hash('tarik', 10)
+                .then(hash => User.create({ username: 'tarik', password: hash})
+                .then(user => console.log(user.toJSON()))
+                .catch(error => console.error(error)))
+        }
+        // bcrypt.hash('tarik', 10)
+        //     .then(hash => User.create({ username: 'tarik',password: hash})
+        //     .then(user => console.log(user.toJSON()))
+        //     .catch(error => console.error(error)))
+
     })
 }
 module.exports = {
-    initDb,Plant
+    initDb,Plant,User
 }
 
 // NOTE 
@@ -54,3 +62,12 @@ module.exports = {
 
 // sequelize nous donne le pouvoir de piloter notre bdd avec du code javascript
 
+// plants.map(plant => {
+//    Plant.create({
+//        name : plant.name,
+//        hp : plant.hp,
+//        cp : plant.cp,
+//        picture : plant.picture,
+//        types: plant.types,   
+//    }).then(myPlant => console.log(myPlant.toJSON()));
+// }) 

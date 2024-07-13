@@ -139,3 +139,23 @@ npm install sequelize mysql2
 **Validators** are responsible for performing model validation at the JavaScript level. We can create our own validators or use those provided by Sequelize. If the validation fails, no request will be made.
 
 **Constraints** are the rules defined at the database level.
+
+## SECURITY
+
+To make our REST API usable, we need to implement a new endpoint to allow the consumer to authenticate.
+
+The two pillars of authentication:
+1. Encrypt passwords -> this is done using the bcrypt module
+2. Secure data exchange -> using JWT (JSON Web Tokens)
+
+4 steps of authentication:
+1. The client (WEB APP) makes a request to authenticate with our REST API (BACKEND). It must send a username/password to the /login endpoint.
+2. Verify if the username/password are correct (using the bcrypt module). If they are, return a valid JWT to the client. Otherwise, send an error message.
+3. Using the retrieved JWT, the client can now make secure requests to the endpoints of our REST API. It must include this token with each request that requires authentication. The token is sent in the HTTP request header. If the token is no longer valid, the client must request a new one.
+4. If the JWT is valid, return the requested data to the client. Otherwise, deny access.
+
+## OTHER JWT INFO
+
+L'identifiant unique de l'utilisateur va permettre de générer un jeton jwt qui sera valide uniquement pour ce client. Il est personnel pour chaque utilsateur.
+Le jeton contient aussi une clé secrète lors du cryptage du jeton.
+Le jeton contient une date de validité. 

@@ -3,32 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
     <title>Test FrontEnd</title>
 </head>
 <body>
-    <h1>Projet Main Verte</h1>
+    <header>
+        <h1 class="roboto-medium">Projet Main Verte</h1>
+    </header>
 
-    <h2>Plants</h2>
-    <table>
-        <thead>
-            <th>id</th>
-            <th>name</th>
-            <th>hp</th>
-            <th>cp</th>
-        </thead>
-        <tbody id="plantList">
+    <main>
+        <div class="heading">
+            <h2>Login to Main Verte</h2>
+            <form id="loginForm">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                <br>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <br>
+                <button type="submit">Login</button>
+            </form>
+        
+        </div>
 
-        </tbody>
-    </table>
+        <div class="container">
+            <table>
+                <thead>
+                    <th>id</th>
+                    <th class="text-align-start">name</th>
+                    <th>picture</th>
+                    <th>hp</th>
+                    <th>cp</th>
+                </thead>
+                <tbody id="plantList">
+        
+                </tbody>
+            </table>
+        </div>
+    </main>
 
-    <h2>Add a plant</h2>
+    <!-- <h2>Add a plant</h2>
     <form id="addPlantForm">
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" required>
         <input type="number" id="hp" name="hp" required>
         <input type="number" id="cp" name="cp" required>
         <button type="submit">Add Plant</button>
-    </form>
+    </form> -->
 
     <script src="./main.js"></script>
 

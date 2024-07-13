@@ -1,8 +1,9 @@
 // route pour delete une plante 
 const { Plant } = require('../db/sequelize'); // importer le model plant    
+const auth = require('../auth/auth');
 
 module.exports = (app) => {
-    app.delete('/api/plants/:id', (req, res) => {
+    app.delete('/api/plants/:id', auth, (req, res) => {
         Plant.findByPk(req.params.id).then(plant => {
             if(plant === null) { 
                 const message = `la plante ${plant.name} n'existe pas !`;

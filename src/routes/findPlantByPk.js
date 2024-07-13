@@ -1,8 +1,9 @@
 // route  findoneplant 
 const { Plant } = require('../db/sequelize'); // importer le model plant
+const auth = require('../auth/auth');
 
 module.exports = (app) => {
-    app.get('/api/plants/:id', (req, res) => {
+    app.get('/api/plants/:id', auth, (req, res) => {
         const id = req.params.id;
         Plant.findByPk(id) // signifie "trouver la plante par son id" = find by primary key. Pas besoin de converter l'id en string
         .then(plant => {

@@ -4,7 +4,7 @@ const plants = [
         name: "Spathiphyllum",
         hp: 25,
         cp: 5,
-        picture: "https://fr.wikipedia.org/wiki/Spathiphyllum#/media/Fichier:Spathuphyllum_cochlearispathum0.jpg",
+        picture: "https://upload.wikimedia.org/wikipedia/commons/8/88/Spathuphyllum_cochlearispathum0.jpg",
         types: ["Plante", "Feuille"],
         created: new Date()
     },
