@@ -6,19 +6,33 @@ const user = require('../models/user');
 const bcrypt = require('bcryptjs');
 
 
+// const sequelize = new Sequelize(
+//     'glasshouse',
+//     'root',
+//     '',
+//     {
+//         host: 'localhost',
+//         dialect: 'mariadb', // nom du driver
+//         dialectOptions: {
+//             timezone: 'Etc/GMT-2'
+//         },
+//         logging: false
+//     }
+// )
+
 const sequelize = new Sequelize(
-    'glasshouse',
-    'root',
-    '',
+    process.env.DB_NAME || 'glasshouse',
+    process.env.DB_USER || 'root',
+    process.env.DB_PASSWORD || '',
     {
-        host: 'localhost',
-        dialect: 'mariadb', // nom du driver
+        host: process.env.DB_HOST || 'localhost',
+        dialect: 'mariadb',
         dialectOptions: {
             timezone: 'Etc/GMT-2'
         },
         logging: false
     }
-)
+);
 
 sequelize.authenticate()
 .then(() => { console.log('Connection has been established successfully.');})

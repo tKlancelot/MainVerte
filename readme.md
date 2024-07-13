@@ -20,3 +20,4 @@
 
 ## Start Xampp in local
 - `sudo /opt/lampp/lampp start`
+

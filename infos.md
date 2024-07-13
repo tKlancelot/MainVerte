@@ -199,3 +199,8 @@ On utilisera donc les variables d'environnement fournie par node.
 1- Attention, on doit s'assurer de ne pas utiliser nodemon en production.
 2- Express est un outil qui nous permet de passer en mode production afin de rendre l'api rest plus efficace
 3- Heroku n'installe pas les dépendances de développement
+
+
+## DÉPLOIEMENT 
+
+`https://vast-beach-19133-d10987d1703d.herokuapp.com/ | https://git.heroku.com/vast-beach-19133.git`
