@@ -1,5 +1,4 @@
 const express = require('express')
-const morgan = require('morgan');
 const favicon = require('serve-favicon');
 const bodyParser = require('body-parser');
 const cors = require('cors'); // Importer le middleware cors
@@ -10,8 +9,7 @@ const sequelize = require('./src/db/sequelize');
 // va chercher express dans node_module 
 // instance de express définit le port du server web 
 const app = express()
-// const port = process.env.PORT || 3000
-const port = 3000
+const port = process.env.PORT || 3000
 
 // Utiliser le middleware cors pour permettre les requêtes cross-origin
 app.use(cors());
@@ -22,10 +20,13 @@ app.use(express.static('public'));
 // add a favicon to our api rest
 app
 .use(favicon(__dirname + '/favicon.ico'))
-.use(morgan('dev'))
 .use(bodyParser.json())
 
 sequelize.initDb();
+
+app.get('/', (req, res) => {
+    res.json('Hello Heroku ! :wave:');
+});
 
 // ici on ajoute nos futurs points de terminaisons
 // CHAINE DE TRAITEMENT DE LA REQUET HTTP
@@ -57,18 +58,4 @@ app.listen(port, () => { console.debug(`notre app ${title} listening on :${port}
 // une api rest réalisée avec express + 
 // directement reliée a une base de données mysql
 
-
-// sequelize.Plant.create({
-//     name: 'Dracaena',
-//     hp: 21,
-//     cp: 4,
-//     picture: 'https://dumonthorticulture.fr/wp-content/uploads/2021/12/20230424_175403-scaled.jpg',
-//     types: ['Feuilles', 'Verte']
-// })
-// .then(plant => {
-//     console.log('Plante ajoutée :', plant);
-// })
-// .catch(error => {
-//     console.error('Erreur d\'ajout :', error);
-// });
 

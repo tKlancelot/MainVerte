@@ -17,7 +17,7 @@
 5. CREATE `package.json`
     - `npm init` (creates a `package.json` file)
     - Replace script section with `"start": "node app.js"`
-    - Now try `npm run start`
+    - Now try `npm run start`  , `npm run dev` (if projet in production)
 6. INSTALL EXPRESS  
     - `npm install express --save`
     - Use the `--save` flag to update `package.json` dependencies
@@ -159,3 +159,43 @@ The two pillars of authentication:
 L'identifiant unique de l'utilisateur va permettre de générer un jeton jwt qui sera valide uniquement pour ce client. Il est personnel pour chaque utilsateur.
 Le jeton contient aussi une clé secrète lors du cryptage du jeton.
 Le jeton contient une date de validité. 
+
+
+## HEROKU && HEROKU CLI 
+
+We chose Heroku as our free hosting provider to deploy our server, REST API, and database. Heroku CLI is used for managing our Heroku applications from the command line, simplifying the deployment process.
+
+To get started, create an account on the Heroku platform, install the Heroku CLI on your Linux system, and log in using the CLI to deploy and manage your applications.
+
+`heroku login`
+
+## GLOBAL NODEJS OBJECTS
+
+In Node.js, global objects are accessible in all modules without requiring them.
+
+### PROCESS
+
+The process object is a key global object that provides information about and control over the current Node.js process, such as process.env, which is used to access environment variables.
+
+### REQUIRE
+
+This function is used to include modules in your application, allowing you to import libraries or files.
+
+### __dirname: 
+
+This global variable provides the absolute path to the directory that contains the currently executing script.
+
+###  MODULE
+
+This object represents the current module and contains information about it, including its exports.
+
+### GLOBAL
+
+This object is the global namespace in Node.js, allowing you to define global variables accessible across all modules.
+
+## SPÉCIFITÉS DE MISE EN PRODUCTION
+
+On utilisera donc les variables d'environnement fournie par node. 
+1- Attention, on doit s'assurer de ne pas utiliser nodemon en production.
+2- Express est un outil qui nous permet de passer en mode production afin de rendre l'api rest plus efficace
+3- Heroku n'installe pas les dépendances de développement
