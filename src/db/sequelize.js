@@ -1,10 +1,9 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const PlantModel = require('../models/plant');
 const UserModel = require('../models/user');
-const plants = require('./mock-plants');
-const user = require('../models/user');
 const bcrypt = require('bcryptjs');
 
+// du calme il va expliquer tout ça !!! 
 
 const sequelize = new Sequelize(
     process.env.DB_NAME || 'glasshouse',
