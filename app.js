@@ -25,9 +25,8 @@ app
 sequelize.initDb();
 
 app.get('/', (req, res) => {
-    res.json('Hello Heroku ! :wave:');
-});
-
+    res.json('Hello, Heroku ! 👋')
+})
 // ici on ajoute nos futurs points de terminaisons
 // CHAINE DE TRAITEMENT DE LA REQUET HTTP
 // requete http client --> API RESET --> Appel à la base de données --> reponse HTTP
