@@ -27,20 +27,6 @@ if(process.env.NODE_ENV === 'production') {
   }
   
 
-// const sequelize = new Sequelize(
-//     process.env.DB_NAME || 'glasshouse',
-//     process.env.DB_USER || 'root',
-//     process.env.DB_PASSWORD || '',
-//     {
-//         host: process.env.DB_HOST || 'localhost',
-//         dialect: 'mariadb',
-//         dialectOptions: {
-//             timezone: 'Etc/GMT-2'
-//         },
-//         logging: false
-//     }
-// );
-    
 
 sequelize.authenticate()
 .then(() => { console.log('Connection has been established successfully.');})
@@ -52,7 +38,8 @@ const User = UserModel(sequelize, DataTypes);
 const initDb = () => {
 
 
-    return sequelize.sync({force: false})
+    // {force: false} permet de supprimer la base de données et de la recreer
+    return sequelize.sync()
     .then(_ => {
         console.log('la base de données ' + sequelize.config.database + ' est synchronisee');
         // ajouter des plantes à la base de données (équivalent des fixtures)
@@ -64,10 +51,7 @@ const initDb = () => {
                 .then(user => console.log(user.toJSON()))
                 .catch(error => console.error(error)))
         }
-        // bcrypt.hash('tarik', 10)
-        //     .then(hash => User.create({ username: 'tarik',password: hash})
-        //     .then(user => console.log(user.toJSON()))
-        //     .catch(error => console.error(error)))
+
 
     })
 }
@@ -93,3 +77,8 @@ module.exports = {
 //        types: plant.types,   
 //    }).then(myPlant => console.log(myPlant.toJSON()));
 // }) 
+
+// bcrypt.hash('tarik', 10)
+//     .then(hash => User.create({ username: 'tarik',password: hash})
+//     .then(user => console.log(user.toJSON()))
+//     .catch(error => console.error(error)))
