@@ -133,3 +133,9 @@ When setting up Sequelize, you need to install the appropriate driver for your d
 ```bash
 npm install sequelize mysql2
 ```
+
+### VALIDATORS AND CONSTRAINTS
+
+**Validators** are responsible for performing model validation at the JavaScript level. We can create our own validators or use those provided by Sequelize. If the validation fails, no request will be made.
+
+**Constraints** are the rules defined at the database level.

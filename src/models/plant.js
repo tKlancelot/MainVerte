@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
             },
             name: {
                 type: DataTypes.STRING,
-                allowNull: false
+                allowNull: false // validateur coté js et en meme temps contrainte SQL lors de la géneration de la bdd
             },
             hp: {
                 type: DataTypes.INTEGER,
