@@ -5,19 +5,41 @@ const bcrypt = require('bcryptjs');
 
 // du calme il va expliquer tout ça !!! 
 
-const sequelize = new Sequelize(
-    process.env.DB_NAME || 'glasshouse',
-    process.env.DB_USER || 'root',
-    process.env.DB_PASSWORD || '',
-    {
-        host: process.env.DB_HOST || 'localhost',
-        dialect: 'mariadb',
-        dialectOptions: {
-            timezone: 'Etc/GMT-2'
-        },
-        logging: false
-    }
-);
+if(process.env.NODE_ENV === 'production') {
+    sequelize = new Sequelize('tx9e9vfqo06bj9qb', 'pngs5j9c9qpfaopa', 'dwxd1ndnc1esbrx9', {
+      host: 'u3r5w4ayhxzdrw87.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+      dialect: 'mariadb',
+      dialectOptions: {
+        timezone: 'Etc/GMT-2',
+      },
+      logging: true
+    })
+  } else {
+    sequelize = new Sequelize('glasshouse', 'root', '', {
+      host: 'localhost',
+      dialect: 'mariadb',
+      dialectOptions: {
+        timezone: 'Etc/GMT-2',
+      },
+      logging: true
+    })
+    
+  }
+  
+
+// const sequelize = new Sequelize(
+//     process.env.DB_NAME || 'glasshouse',
+//     process.env.DB_USER || 'root',
+//     process.env.DB_PASSWORD || '',
+//     {
+//         host: process.env.DB_HOST || 'localhost',
+//         dialect: 'mariadb',
+//         dialectOptions: {
+//             timezone: 'Etc/GMT-2'
+//         },
+//         logging: false
+//     }
+// );
     
 
 sequelize.authenticate()
