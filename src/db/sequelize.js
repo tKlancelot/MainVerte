@@ -35,26 +35,6 @@ sequelize.authenticate()
 const Plant = PlantModel(sequelize, DataTypes);
 const User = UserModel(sequelize, DataTypes);
 
-// const initDb = () => {
-
-
-//     // {force: false} permet de supprimer la base de données et de la recreer
-//     return sequelize.sync()
-//     .then(_ => {
-//         console.log('la base de données ' + sequelize.config.database + ' est synchronisee');
-//         // ajouter des plantes à la base de données (équivalent des fixtures)
-        
-//         // if le user n'existe pas 
-//         if(!User.findOne({ where: { username: 'tarik' } })) {
-//             return bcrypt.hash('tarik', 10)
-//                 .then(hash => User.create({ username: 'tarik', password: hash})
-//                 .then(user => console.log(user.toJSON()))
-//                 .catch(error => console.error(error)))
-//         }
-
-
-//     })
-// }
 
 const initDb = () => {
   return sequelize.sync().then(_ => {
