@@ -39,9 +39,9 @@ const User = UserModel(sequelize, DataTypes);
 const initDb = () => {
   return sequelize.sync().then(_ => {
 
-    bcrypt.hash('tarik', 10)
-    .then(hash => User.create({ username: 'tarik', password: hash }))
-    .then(user => console.log(user.toJSON()))
+    // bcrypt.hash('tarik', 10)
+    // .then(hash => User.create({ username: 'tarik', password: hash }))
+    // .then(user => console.log(user.toJSON()))
 
     console.log('La base de donnée a bien été initialisée !')
   })
