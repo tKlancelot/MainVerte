@@ -27,6 +27,16 @@ if (process.env.NODE_ENV === 'production') {
 // Servir les fichiers statiques dans le dossier "public"
 app.use(express.static('public'));
 
+
+// Middleware pour logguer le protocole
+app.use((req, res, next) => {
+    console.log(`Protocol: ${req.protocol}`);
+    console.log(`x-forwarded-proto: ${req.header('x-forwarded-proto')}`);
+    next();
+});
+
+
+
 // add a favicon to our api rest
 app
 .use(favicon(__dirname + '/favicon.ico'))
