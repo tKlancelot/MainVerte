@@ -21,7 +21,8 @@ module.exports = (app) => {
         let picture = null;
 
         if (req.file) {
-            picture = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+            const protocol = req.secure ? 'https' : 'http';
+            picture = `${protocol}://${req.get('host')}/images/${req.file.filename}`;
         }
 
         Plant.create({ name, description, hp, cp, types, picture })

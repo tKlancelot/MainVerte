@@ -14,6 +14,15 @@ const port = process.env.PORT || 3000
 // Utiliser le middleware cors pour permettre les requêtes cross-origin
 app.use(cors());
 
+if (process.env.NODE_ENV === 'production') {
+    app.use((req, res, next) => {
+        if (req.header('x-forwarded-proto') !== 'https') {
+            res.redirect(`https://${req.header('host')}${req.url}`);
+        } else {
+            next();
+        }
+    });
+}
 
 // Servir les fichiers statiques dans le dossier "public"
 app.use(express.static('public'));
