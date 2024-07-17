@@ -14,6 +14,7 @@ const port = process.env.PORT || 3000
 // Utiliser le middleware cors pour permettre les requêtes cross-origin
 app.use(cors());
 
+
 // Servir les fichiers statiques dans le dossier "public"
 app.use(express.static('public'));
 
@@ -27,6 +28,8 @@ sequelize.initDb();
 app.get('/', (req, res) => {
     res.json('Hello, Heroku ! 👋')
 })
+
+
 // ici on ajoute nos futurs points de terminaisons
 // CHAINE DE TRAITEMENT DE LA REQUET HTTP
 // requete http client --> API RESET --> Appel à la base de données --> reponse HTTP
@@ -42,6 +45,8 @@ require('./src/routes/createPlant')(app);
 require('./src/routes/updatePlant')(app);
 require('./src/routes/deletePlant')(app);
 require('./src/routes/login')(app);
+
+
 
 // Gestion des erreurs 404 par express
 app.use((req, res, next) => {
