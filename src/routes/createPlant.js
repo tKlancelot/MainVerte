@@ -18,12 +18,14 @@ const upload = multer({ storage: storage });
 module.exports = (app) => {
     app.post('/api/plants', auth, upload.single('picture'), (req, res) => {
         const { name, description, hp, cp, types } = req.body;
-        let picture = null;
+        let picture = req.body.picture;
+
 
         if (req.file) {
-            const protocol = req.secure ? 'https' : 'http';
+            const protocol = req.header('x-forwarded-proto') || req.protocol;
             picture = `${protocol}://${req.get('host')}/images/${req.file.filename}`;
         }
+
 
         Plant.create({ name, description, hp, cp, types, picture })
             .then(plantCreated => {
