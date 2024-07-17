@@ -24,22 +24,13 @@ if (process.env.NODE_ENV === 'production') {
     });
 }
 
+// Servir les fichiers statiques dans le dossier "public"
+app.use(express.static('public'));
 
-// Middleware pour servir les fichiers statiques dans le dossier "public"
-app.use(express.static(path.join(__dirname, 'public')));
-
-// Middleware pour le favicon
-app.use(favicon(path.join(__dirname, 'favicon.ico')));
-
-// Middleware pour parser le JSON
-app.use(bodyParser.json());
-
-// Middleware pour logguer le protocole
-app.use((req, res, next) => {
-    console.log(`Protocol: ${req.protocol}`);
-    console.log(`x-forwarded-proto: ${req.header('x-forwarded-proto')}`);
-    next();
-});
+// add a favicon to our api rest
+app
+.use(favicon(__dirname + '/favicon.ico'))
+.use(bodyParser.json())
 
 sequelize.initDb();
 
