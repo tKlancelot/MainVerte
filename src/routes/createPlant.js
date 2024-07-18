@@ -24,7 +24,7 @@ module.exports = (app) => {
 
         if (req.file) {
             // Générer l'URL complète de l'image
-            picture = `${req.protocol}://${req.get('host')}/public/images/${req.file.filename}`;
+            picture = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
         }
 
 
