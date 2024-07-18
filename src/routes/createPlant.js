@@ -7,10 +7,10 @@ const path = require('path');
 // Configuration de multer pour le stockage des images
 const storage = multer.diskStorage({
     destination: (req, file, callBack) => {
-        callBack(null, 'public/images');
+        callBack(null, 'public/images'); // Dossier de destination pour les fichiers uploadés
     },
     filename: (req, file, callBack) => {
-        callBack(null, Date.now() + path.extname(file.originalname));
+        callBack(null, Date.now() + path.extname(file.originalname)); // Nom du fichier
     }
 });
 const upload = multer({ storage: storage });
@@ -18,12 +18,13 @@ const upload = multer({ storage: storage });
 module.exports = (app) => {
     app.post('/api/plants', auth, upload.single('picture'), (req, res) => {
         const { name, description, hp, cp, types } = req.body;
-        let picture = null;
+        // let picture = null;
+        let picture = req.body.picture;
 
 
         if (req.file) {
-            const protocol = req.header('x-forwarded-proto') || req.protocol;
-            picture = `${protocol}://${req.get('host')}/images/${req.file.filename}`;
+            // Générer l'URL complète de l'image
+            picture = `${req.protocol}://${req.get('host')}/public/images/${req.file.filename}`;
         }
 
 
