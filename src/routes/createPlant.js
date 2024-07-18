@@ -18,7 +18,7 @@ const upload = multer({ storage: storage });
 module.exports = (app) => {
     app.post('/api/plants', auth, upload.single('picture'), (req, res) => {
         const { name, description, hp, cp, types } = req.body;
-        let picture = req.body.picture;
+        let picture = null;
 
 
         if (req.file) {
