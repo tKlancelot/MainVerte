@@ -46,8 +46,14 @@ require('./src/routes/findPlantByPk')(app);
 require('./src/routes/createPlant')(app);
 require('./src/routes/updatePlant')(app);
 require('./src/routes/deletePlant')(app);
-require('./src/routes/login')(app);
 
+require('./src/routes/findAllComponents')(app);
+require('./src/routes/findComponentByPk')(app);
+require('./src/routes/createComponent')(app);
+require('./src/routes/updateComponent')(app);
+require('./src/routes/deleteComponent')(app);
+
+require('./src/routes/login')(app);
 
 
 // Gestion des erreurs 404 par express

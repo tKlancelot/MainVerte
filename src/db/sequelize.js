@@ -1,6 +1,7 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const PlantModel = require('../models/plant');
 const UserModel = require('../models/user');
+const ComponentModel = require('../models/components');
 const bcrypt = require('bcryptjs');
 
 // du calme il va expliquer tout ça !!! 
@@ -34,6 +35,7 @@ sequelize.authenticate()
 
 const Plant = PlantModel(sequelize, DataTypes);
 const User = UserModel(sequelize, DataTypes);
+const Component = ComponentModel(sequelize, DataTypes);
 
 
 const initDb = () => {
@@ -52,7 +54,7 @@ const initDb = () => {
 
 
 module.exports = {
-    initDb,Plant,User
+    initDb,Plant,User,Component
 }
 
 // NOTE 
