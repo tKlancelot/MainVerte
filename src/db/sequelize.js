@@ -1,8 +1,8 @@
 const { Sequelize, DataTypes } = require('sequelize');
-const PlantModel = require('../models/plant');
 const UserModel = require('../models/user');
 const ComponentModel = require('../models/components');
 const bcrypt = require('bcryptjs');
+// const PlantModel = require('../models/plant');
 
 // du calme il va expliquer tout ça !!! 
 
@@ -33,7 +33,7 @@ sequelize.authenticate()
 .then(() => { console.log('Connection has been established successfully.');})
 .catch(err => { console.error('Unable to connect to the database:', err);});
 
-const Plant = PlantModel(sequelize, DataTypes);
+// const Plant = PlantModel(sequelize, DataTypes);
 const User = UserModel(sequelize, DataTypes);
 const Component = ComponentModel(sequelize, DataTypes);
 
@@ -54,7 +54,7 @@ const initDb = () => {
 
 
 module.exports = {
-    initDb,Plant,User,Component
+    initDb,User,Component
 }
 
 // NOTE 

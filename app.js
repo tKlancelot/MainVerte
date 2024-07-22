@@ -2,7 +2,7 @@ const express = require('express')
 const favicon = require('serve-favicon');
 const bodyParser = require('body-parser');
 const cors = require('cors'); // Importer le middleware cors
-let title = "projet main verte !!";
+let title = "projet Ringover Components !!";
 const sequelize = require('./src/db/sequelize');
 
 
@@ -28,7 +28,7 @@ app
 sequelize.initDb();
 
 app.get('/', (req, res) => {
-    res.json('Hello, Heroku ! 👋')
+    res.json('Hello, Ringover Component API ! 👋')
 })
 
 
@@ -41,11 +41,11 @@ app.get('/', (req, res) => {
 // findallplants(app);
 
 // methode simplifiée
-require('./src/routes/findAllPlants')(app);
-require('./src/routes/findPlantByPk')(app);
-require('./src/routes/createPlant')(app);
-require('./src/routes/updatePlant')(app);
-require('./src/routes/deletePlant')(app);
+// require('./src/routes/findAllPlants')(app);
+// require('./src/routes/findPlantByPk')(app);
+// require('./src/routes/createPlant')(app);
+// require('./src/routes/updatePlant')(app);
+// require('./src/routes/deletePlant')(app);
 
 require('./src/routes/findAllComponents')(app);
 require('./src/routes/findComponentByPk')(app);
