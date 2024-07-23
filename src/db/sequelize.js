@@ -38,19 +38,42 @@ const User = UserModel(sequelize, DataTypes);
 const Component = ComponentModel(sequelize, DataTypes);
 
 
-const initDb = () => {
-  return sequelize.sync().then(_ => {
+const initDb = async () => {
+  try {
+    // Synchroniser tous les modèles avec la base de données
+    await sequelize.sync();
 
-    // bcrypt.hash('tarik', 10)
-    // .then(hash => User.create({ username: 'tarik', password: hash }))
-    // .then(user => console.log(user.toJSON()))
+    // Utilisateurs par défaut à ajouter si non existants
+    const defaultUsers = [
+      { username: 'tarik', password: 'ringover' },
+      { username: 'léa', password: 'ringover' },
+      { username: 'sophie', password: 'ringover' },
+      { username: 'victor', password: 'ringover' }
+    ];
 
-    // comment reinitialiser la bdd ?
-    // sequelize.sync() 
+    // Traiter chaque utilisateur par défaut
+    for (const user of defaultUsers) {
+      // Vérifier si l'utilisateur existe déjà
+      const existingUser = await User.findOne({ where: { username: user.username } });
 
-    console.log('La base de donnée a bien été initialisée !')
-  })
-}
+      if (!existingUser) {
+        // Hacher le mot de passe
+        const hash = await bcrypt.hash(user.password, 10);
+
+        // Créer l'utilisateur
+        await User.create({ username: user.username, password: hash });
+
+        console.log(`Utilisateur ${user.username} créé avec succès.`);
+      } else {
+        console.log(`Utilisateur ${user.username} existe déjà, pas de création nécessaire.`);
+      }
+    }
+
+    console.log('La base de données a bien été initialisée !');
+  } catch (error) {
+    console.error('Erreur lors de l\'initialisation de la base de données :', error);
+  }
+};
 
 
 module.exports = {
