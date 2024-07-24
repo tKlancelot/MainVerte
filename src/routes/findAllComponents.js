@@ -1,11 +1,10 @@
 const { Op } = require('sequelize');
 const { Component } = require('../db/sequelize'); // importer le modèle Component
-const auth = require('../auth/auth');
 
 module.exports = (app) => {
 
 
-    app.get('/api/components', auth, (req, res) => {
+    app.get('/api/components', (req, res) => {
 
         const orderby = req.query.orderby || 'label';
         const order = req.query.order || 'ASC';
