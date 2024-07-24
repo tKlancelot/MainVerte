@@ -2,7 +2,6 @@ const { Op } = require('sequelize');
 const { Component } = require('../db/sequelize'); // importer le modèle Component
 
 module.exports = (app) => {
-
     app.get('/api/components', (req, res) => {
         const orderby = req.query.orderby || 'label';
         const order = req.query.order || 'ASC';
@@ -10,90 +9,46 @@ module.exports = (app) => {
         const limit = parseInt(req.query.limit) || 10;
         const offset = (page - 1) * limit;
 
+        // Initialize an object to hold query conditions
+        const conditions = {};
+
+        // Add label filter if provided
         if (req.query.label) {
             const label = req.query.label;
             if (label.length < 2) {
                 const message = 'La recherche doit contenir au moins deux lettres';
-                res.status(400).json({ message });
-                return;
+                return res.status(400).json({ message });
             }
-            return Component.findAndCountAll({
-                where: {
-                    label: {
-                        [Op.like]: `%${label}%`
-                    }
-                },
-                order: [[orderby, order]],
-                limit: limit,
-                offset: offset
-            })
-                .then(({ count, rows }) => {
-                    const message = `Il y a ${count} composant(s) correspondant au terme de recherche ${label}!`;
-                    const totalPages = Math.ceil(count / limit);
-                    res.json({ message, data: rows, totalPages: totalPages, currentPage: page }); // spécifié par express
-                });
-        } else {
-            Component.findAndCountAll({
-                order: [[orderby, order]],
-                limit: limit,
-                offset: offset
-            })
-                .then(({ count, rows }) => {
-                    const message = 'Tous les composants ont bien été récupérés !';
-                    const totalPages = Math.ceil(count / limit);
-                    res.json({ message, data: rows, totalPages: totalPages, currentPage: page });
-                })
-                .catch(error => {
-                    const message = `La requête a échoué : ${error}`;
-                    res.status(500).json({ message, data: error }); // méthode status
-                });
+            conditions.label = {
+                [Op.like]: `%${label}%`
+            };
         }
+
+        // Add status filter if provided
+        if (req.query.status) {
+            conditions.status = req.query.status;
+        }
+
+        // Add categ filter if provided
+        if (req.query.categ) {
+            conditions.categ = req.query.categ;
+        }
+
+        // Use findAndCountAll to support pagination and counting
+        Component.findAndCountAll({
+            where: conditions,
+            order: [[orderby, order]],
+            limit: limit,
+            offset: offset
+        })
+            .then(({ count, rows }) => {
+                const message = `Il y a ${count} composant(s) correspondant aux critères de recherche !`;
+                const totalPages = Math.ceil(count / limit);
+                res.json({ message, data: rows, totalPages: totalPages, currentPage: page });
+            })
+            .catch(error => {
+                const message = `La requête a échoué : ${error}`;
+                res.status(500).json({ message, data: error });
+            });
     });
 };
-
-
-// const { Op } = require('sequelize');
-// const { Component } = require('../db/sequelize'); // importer le modèle Component
-
-// module.exports = (app) => {
-
-
-//     app.get('/api/components', (req, res) => {
-
-//         const orderby = req.query.orderby || 'label';
-//         const order = req.query.order || 'ASC';
-
-//         if (req.query.label) {
-//             const label = req.query.label;
-//             const limit = parseInt(req.query.limit) || 5;
-//             if (label.length < 2) {
-//                 const message = 'La recherche doit contenir au moins deux lettres';
-//                 res.status(400).json({ message });
-//                 return;
-//             }
-//             return Plant.findAndCountAll({
-//                 where: {
-//                     label: {
-//                         [Op.like]: `%${label}%`
-//                     }
-//                 },
-//                 order: [[orderby, order]],
-//                 limit: limit
-//             })
-//                 .then(({ count, rows }) => {
-//                     const message = `Il y a ${count} composant(s) correspondant au terme de recherche ${label}!`;
-//                     res.json({ message, data: rows }); // spécifié par express
-//                 });
-//         } else {
-//             Component.findAll({ order: [[orderby, order]] }) // Tri par le paramètre orderby et l'ordre
-//                 .then(components => {
-//                     const message = 'Tous les composants ont bien été récupérées !';
-//                     res.json({ message, data: components });
-//                 })
-//                 .catch(error => {
-//                     const message = `La requête a échoué : ${error}`;
-//                     res.status(500).json({ message, data: error }); // méthode status
-//                 });
-//         }
-//     });
-// };
