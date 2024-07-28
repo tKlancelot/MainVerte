@@ -55,6 +55,8 @@ require('./src/routes/deleteComponent')(app);
 
 require('./src/routes/login')(app);
 
+require('./src/routes/findAllUsers')(app);
+
 
 // Gestion des erreurs 404 par express
 app.use((req, res, next) => {
