@@ -56,6 +56,7 @@ require('./src/routes/deleteComponent')(app);
 require('./src/routes/login')(app);
 
 require('./src/routes/findAllUsers')(app);
+require('./src/routes/findUserByPk')(app);
 
 
 // Gestion des erreurs 404 par express
