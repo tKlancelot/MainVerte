@@ -41,11 +41,6 @@ app.get('/', (req, res) => {
 // findallplants(app);
 
 // methode simplifiée
-// require('./src/routes/findAllPlants')(app);
-// require('./src/routes/findPlantByPk')(app);
-// require('./src/routes/createPlant')(app);
-// require('./src/routes/updatePlant')(app);
-// require('./src/routes/deletePlant')(app);
 
 require('./src/routes/findAllComponents')(app);
 require('./src/routes/findComponentByPk')(app);
@@ -57,6 +52,8 @@ require('./src/routes/login')(app);
 
 require('./src/routes/findAllUsers')(app);
 require('./src/routes/findUserByPk')(app);
+require('./src/routes/createUser')(app);
+require('./src/routes/deleteUser')(app);
 
 
 // Gestion des erreurs 404 par express
