@@ -40,41 +40,42 @@ const Component = ComponentModel(sequelize, DataTypes);
 
 const initDb = async () => {
   try {
-    // Synchroniser tous les modèles avec la base de données
-    await sequelize.sync();
+      // Synchroniser tous les modèles avec la base de données
+      await sequelize.sync({ force: true });
 
-    // Utilisateurs par défaut à ajouter si non existants
-    const defaultUsers = [
-      { username: 'tarik', password: 'ringover' },
-      { username: 'léa', password: 'ringover' },
-      { username: 'sophie', password: 'ringover' },
-      { username: 'victor', password: 'ringover' }
-    ];
+      // Utilisateurs par défaut à ajouter si non existants
+      const defaultUsers = [
+          { username: 'tarik', password: 'ringover', role: 'super_admin' },
+          { username: 'léa', password: 'ringover', role: 'super_admin' },
+          { username: 'sophie', password: 'ringover', role: 'contributeur' },
+          { username: 'victor', password: 'ringover', role: 'contributeur' },
+          { username: 'reader1', password: 'ringover', role: 'lecteur' },
+          { username: 'reader2', password: 'ringover', role: 'lecteur' }
+      ];
 
-    // Traiter chaque utilisateur par défaut
-    for (const user of defaultUsers) {
-      // Vérifier si l'utilisateur existe déjà
-      const existingUser = await User.findOne({ where: { username: user.username } });
+      // Traiter chaque utilisateur par défaut
+      for (const user of defaultUsers) {
+          // Vérifier si l'utilisateur existe déjà
+          const existingUser = await User.findOne({ where: { username: user.username } });
 
-      if (!existingUser) {
-        // Hacher le mot de passe
-        const hash = await bcrypt.hash(user.password, 10);
+          if (!existingUser) {
+              // Hacher le mot de passe
+              const hash = await bcrypt.hash(user.password, 10);
 
-        // Créer l'utilisateur
-        await User.create({ username: user.username, password: hash });
+              // Créer l'utilisateur
+              await User.create({ username: user.username, password: hash, role: user.role });
 
-        console.log(`Utilisateur ${user.username} créé avec succès.`);
-      } else {
-        console.log(`Utilisateur ${user.username} existe déjà, pas de création nécessaire.`);
+              console.log(`Utilisateur ${user.username} créé avec succès.`);
+          } else {
+              console.log(`Utilisateur ${user.username} existe déjà, pas de création nécessaire.`);
+          }
       }
-    }
 
-    console.log('La base de données a bien été initialisée !');
+      console.log('La base de données a bien été initialisée !');
   } catch (error) {
-    console.error('Erreur lors de l\'initialisation de la base de données :', error);
+      console.error('Erreur lors de l\'initialisation de la base de données :', error);
   }
 };
-
 
 module.exports = {
     initDb,User,Component
