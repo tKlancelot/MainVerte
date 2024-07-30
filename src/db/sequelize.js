@@ -40,8 +40,8 @@ const Component = ComponentModel(sequelize, DataTypes);
 
 const initDb = async () => {
   try {
-      // Synchroniser tous les modèles avec la base de données
-      await sequelize.sync({ force: true });
+      // Synchroniser uniquement le modèle User avec la base de données
+      await User.sync({ force: true });
 
       // Utilisateurs par défaut à ajouter si non existants
       const defaultUsers = [
@@ -76,6 +76,7 @@ const initDb = async () => {
       console.error('Erreur lors de l\'initialisation de la base de données :', error);
   }
 };
+
 
 module.exports = {
     initDb,User,Component
